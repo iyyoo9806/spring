@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wise.mappers.boardMapper">
+
+<!-- 사용자 게시물 + 페이징 + 검색 -->
+<select id="listPage" parameterType="hashMap" resultType="com.wise.domain.BoardVO">
+	select
+		IDX,TITLE,CONTENTS,NAME,DEGREE,FILEPATH,DATE_FORMAT(date, '%Y%m%d') as DATE
+			from spring_pro.board
+		where id =#{id}
+		
+		 <if test='searchType.equals("title")'>
+		  AND title LIKE concat('%', #{keyword}, '%')
+		 </if>
+ 
+		 <if test='searchType.equals("date")'>
+		  AND date LIKE concat('%', #{keyword}, '%')
+		 </if>
+		
+		order by idx desc
+		limit #{displayPost, jdbcType=INTEGER}, #{postNum, jdbcType=INTEGER}
+</select>
+
+
+<!-- 관리자 게시물 +페이징 + 검색 -->
+<select id="adminList" parameterType="hashMap" resultType="com.wise.domain.BoardVO">
+	select
+		IDX,TITLE,CONTENTS,NAME,DEGREE,FILEPATH,DATE_FORMAT(date, '%Y-%m-%d') as DATE
+			from spring_pro.board
+			
+		 <if test='searchType.equals("title")'>
+		  WHERE title LIKE concat('%', #{keyword}, '%')
+		 </if>
+ 
+		 <if test='searchType.equals("date")'>
+		  WHERE date LIKE concat('%', #{keyword}, '%')
+		 </if>
+			
+		order by idx desc
+		limit #{displayPost}, #{postNum}
+</select>
+
+<!-- 게시물 작성 -->
+<insert id="write">
+	insert into spring_pro.board(IDX, ID, TITLE, CONTENTS, NAME, DEGREE, FILEPATH, DATE)
+		values (NULL, #{id}, #{title}, #{contents}, #{name}, #{degree},
+		#{filepath}, SYSDATE())
+</insert>
+
+<!-- 조회 -->
+<select id="read" resultType="com.wise.domain.BoardVO">
+	select IDX, TITLE, CONTENTS, NAME, DEGREE, FILEPATH, DATE
+		from spring_pro.board
+		where idx = #{idx}
+</select>
+
+<!-- 수정 -->
+<update id="modify" parameterType="com.wise.domain.BoardVO">
+	update spring_pro.board
+		set
+			TITLE = #{title},
+			CONTENTS = #{contents}
+		where idx = #{idx}
+</update>
+
+<!-- 삭제 -->
+<delete id="delete" parameterType="String">
+	delete
+		from spring_pro.board
+	where IDX = #{idx}
+</delete>
+
+<!-- 게시물 총 갯수 -->
+<select id="countAdmin" resultType="int">
+	select count(idx)
+		from spring_pro.board
+</select>
+
+
+<!-- 게시물 아이디별 갯수 + 검색 -->
+<select id="count" resultType="int" parameterType="hashMap">
+	select count(idx)
+		from spring_pro.board
+		where id =#{id}
+		
+		<if test='searchType.equals("title")'>
+		  AND title LIKE concat('%', #{keyword}, '%')
+		 </if>
+ 
+		 <if test='searchType.equals("date")'>
+		  AND date LIKE concat('%', #{keyword}, '%')
+		 </if>
+</select>
+
+
+</mapper>

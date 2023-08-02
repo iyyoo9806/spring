@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wise.mappers.userMapper">
+
+<!-- 회원 가입 -->
+<insert id="signup">
+ insert into spring_pro.account(ID, PASSWORD, NAME, DEGREE, VERIFY)
+  values(#{id}, #{password}, #{name}, #{degree}, 'n')
+</insert>
+
+<select id="idCheck" resultType="com.wise.domain.UserVO">
+	select ID
+	from spring_pro.account
+	where id = #{id}
+</select>
+
+<!-- 로그인 -->
+<select id="login" resultType="com.wise.domain.UserVO">
+ 	select
+    ID, NAME, PASSWORD, DEGREE, VERIFY
+ 	from spring_pro.account
+ 	where id = #{id}
+</select>
+
+</mapper>
