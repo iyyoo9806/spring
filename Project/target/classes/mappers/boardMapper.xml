@@ -42,6 +42,21 @@
 		limit #{displayPost}, #{postNum}
 </select>
 
+<!-- 관리자 게시물 + 검색 엑셀 다운로드 -->
+<select id="excel" parameterType="hashMap" resultType="com.wise.domain.BoardVO">
+	select
+		IDX,TITLE,CONTENTS,NAME,DEGREE,FILEPATH,DATE_FORMAT(date, '%Y-%m-%d') as DATE
+			from spring_pro.board
+			
+		 <if test='searchType.equals("title")'>
+		  WHERE title LIKE concat('%', #{keyword}, '%')
+		 </if>
+ 
+		 <if test='searchType.equals("date")'>
+		  WHERE date LIKE concat('%', #{keyword}, '%')
+		 </if>
+</select>
+
 <!-- 게시물 작성 -->
 <insert id="write">
 	insert into spring_pro.board(IDX, ID, TITLE, CONTENTS, NAME, DEGREE, FILEPATH, DATE)

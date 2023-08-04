@@ -36,6 +36,15 @@ public class BoardDAOImpl implements BoardDAO {
 		return sql.selectList(namespace + ".adminList", data);
 	}
 	
+	//관리자 엑셀 다운
+	@Override
+	public List<BoardVO> excel(String searchType, String keyword) throws Exception {
+		HashMap<String, String> data = new HashMap<String, String>();
+		data.put("searchType", searchType);
+		data.put("keyword", keyword);
+		return sql.selectList(namespace + ".excel", data);
+	}
+	
 	//작성
 	@Override
 	public void write(BoardVO vo) throws Exception {

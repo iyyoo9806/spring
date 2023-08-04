@@ -1,5 +1,7 @@
 package com.wise.domain;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class BoardVO {
 	private String idx;
 	private String id;
@@ -9,6 +11,7 @@ public class BoardVO {
 	private String degree;
 	private String date;
 	private String filepath;
+	private MultipartFile uploadFile;
 	
 	public String getIdx() {
 		return idx;

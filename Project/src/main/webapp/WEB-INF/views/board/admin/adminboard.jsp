@@ -117,7 +117,8 @@
                         <div class="card-header py-3 d-flex justify-content-between align-items-center">
             			<h6 class="m-0 font-weight-bold text-primary">${sessionScope.name}님 환영합니다.</h6>
 				            <!-- <a href="#" class="btn btn-secondary btn-icon-split"> -->
-				                <a href="?" class="btn btn-primary">다운로드</a>
+				                <a href="<c:url value='/excel?searchType=${page.searchType }&keyword=${page.keyword }
+				                ' />" class="btn btn-primary" id="excelDown">엑셀 다운로드</a>
 				            <!-- </a> -->
 				        </div>
 
@@ -147,6 +148,7 @@
                                 </table>
                                 
                                 <div align="center">
+                                <form action="/excel" method="GET">
                                 <c:if test="${page.prev}">
 								 <span>[ <a href="/board?num=${page.startPageNum - 1}${page.searchTypeKeyword}">이전</a> ]</span>
 								</c:if>
@@ -179,6 +181,7 @@
 								  
 								  <button type="button" class="btn btn-primary" id="searchBtn">검색</button>
 								</div>
+								</form>
 								</div>
 								
                             </div>

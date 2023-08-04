@@ -28,6 +28,12 @@ public class BoardServiceImpl implements BoardService {
 		return dao.adminList(displayPost, postNum, searchType, keyword);
 	}
 	
+	// 관리자 게시물 엑셀
+	@Override
+	public List<BoardVO> excel(String searchType, String keyword) throws Exception {
+		return dao.excel(searchType, keyword);
+	}
+	
 	//작성
 	@Override
 	public void write(BoardVO vo) throws Exception {

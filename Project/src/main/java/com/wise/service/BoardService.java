@@ -12,6 +12,9 @@ public interface BoardService {
 	// 관리자 게시물 목록 + 페이징 + 검색
 	public List<BoardVO> adminList(int displayPost, int postNum, String searchType, String keyword) throws Exception;
 	
+	// 관리자 게시물 목록 + 검색 + 엑셀
+	public List<BoardVO> excel(String searchType, String keyword) throws Exception;
+	
 	//작성
 	public void write(BoardVO vo) throws Exception;
 	
