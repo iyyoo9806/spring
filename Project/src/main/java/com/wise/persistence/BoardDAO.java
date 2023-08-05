@@ -1,6 +1,7 @@
 package com.wise.persistence;
 
 import java.util.List;
+import java.util.Map;
 
 import com.wise.domain.BoardVO;
 
@@ -36,4 +37,7 @@ public interface BoardDAO {
 	
 	//게시물 아이디별 갯수 + 검색
 	public int count(String id, String searchType, String keyword) throws Exception;
+	
+	//최신 idx값
+	public String nextIdx() throws Exception;
 }

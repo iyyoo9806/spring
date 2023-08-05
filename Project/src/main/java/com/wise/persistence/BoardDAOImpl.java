@@ -2,6 +2,7 @@ package com.wise.persistence;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -99,5 +100,11 @@ public class BoardDAOImpl implements BoardDAO {
 		data.put("keyword", keyword);
 		
 		return sql.selectOne(namespace + ".count", data);
+	}
+	
+	//최신 idx
+	@Override
+	public String nextIdx() throws Exception{
+		return sql.selectOne(namespace + ".nextIdx");
 	}
 }

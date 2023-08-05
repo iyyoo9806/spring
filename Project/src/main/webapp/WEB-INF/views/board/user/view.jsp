@@ -121,6 +121,8 @@ function cancel(){
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="title" name="title"
 										value="${read.title }" maxLength="100" readonly="readonly">
+									<input type="hidden" class="form-control" id="idx" name="idx"
+										value="${read.idx }" maxLength="100">
 								</div>
 							</div>
 							<div class="form-group">
@@ -128,6 +130,17 @@ function cancel(){
 								<div class="col-sm-10">
 									<textarea class="form-control" rows="5" id="contents" name="contents"
 										maxlength="1000" readonly="readonly">${read.contents }</textarea>
+										
+										<div class="file-info">
+							    			<span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
+							    			<br>
+							    			첨부파일
+							    			<br>
+							    			<c:forEach items="${fileNames}" var="filename">
+								    			<a href='<c:url value="/download?idx=${read.idx}&filename=${filename}" />'><c:out value="${filename}" /></a><br>
+											</c:forEach>
+										</div>
+										
 								</div>
 							</div>
 							<div class="panel-footer">

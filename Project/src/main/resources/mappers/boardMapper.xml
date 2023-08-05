@@ -109,5 +109,39 @@
 		 </if>
 </select>
 
+<!-- 파일 업로드 -->
+<insert id="upload" parameterType="hashmap">
+    <![CDATA[
+        INSERT INTO spring_pro.file
+        (
+            BOARD_IDX,
+            ORG_FILE_NAME,
+            SAVE_FILE_NAME,
+            FILE_SIZE,
+            ID,
+            CREA_DATE,
+            UPDATE_DATE
+        )
+        VALUES
+        (
+            #{ BOARD_IDX},
+            #{ ORG_FILE_NAME},
+            #{ SAVE_FILE_NAME},
+            #{ FILE_SIZE},
+            #{ id},
+            SYSDATE(),
+            SYSDATE()
+        )
+    ]]>
+</insert>
+
+<!-- 최신 idx값 찾기 -->
+<select id="nextIdx" resultType="String">
+select Auto_increment from 
+information_schema.tables where 
+table_schema = 'spring_pro' and table_name = 'board'
+</select>
+
+
 
 </mapper>

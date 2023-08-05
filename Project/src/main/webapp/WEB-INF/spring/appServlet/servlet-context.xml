@@ -23,12 +23,12 @@
 	
 	<context:component-scan base-package="com.wise.controller" />
 	
-	<beans:bean id="AdminInterceptor" class="com.wise.interceptor.LoginInterceptor" />
+	<beans:bean id="LoginInterceptor" class="com.wise.interceptor.LoginInterceptor" />
 
 	<interceptors>
 	 <interceptor>
 	  <mapping path="/board/**" />
-	  <beans:ref bean="AdminInterceptor" />
+	  <beans:ref bean="LoginInterceptor" />
 	 </interceptor>
 	 
 	</interceptors>

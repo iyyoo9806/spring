@@ -118,7 +118,7 @@ function cancel(){
 				<div class="container-fluid">
 
 					<div class="panel-body">
-						<form class="form-horizontal" method="post" action="modifying">
+						<form class="form-horizontal" method="post" action="modifying" enctype="multipart/form-data">
 							<div class="form-group">
 								<label class="control-label col-sm-2" for="pwd">제목</label>
 								<div class="col-sm-10">
@@ -133,6 +133,14 @@ function cancel(){
 								<div class="col-sm-10">
 									<textarea class="form-control" rows="5" id="contents" name="contents"
 										maxlength="1000">${read.contents }</textarea>
+										
+							<div class="form-group" id="file-list">
+					        	<a href="#this" onclick="addFile()">파일추가</a>
+					        		<div class="file-group">
+					            			<input type="file" name="file"><a href='#this' name='file-delete'>삭제</a>
+					        		</div>
+					    	</div>
+										
 								</div>
 							</div>
 							<div class="panel-footer">
@@ -189,6 +197,28 @@ function cancel(){
 	<!-- Custom scripts for all pages-->
 	<script src="resources/js/sb-admin-2.min.js"></script>
 
+
+<script type="text/javaScript" language="javascript" defer="defer">
+    $(document).ready(function() {
+        $("a[name='file-delete']").on("click", function(e) {
+            e.preventDefault();
+            deleteFile($(this));
+        });
+    })
+ 
+    function addFile() {
+        var str = "<div class='file-group'><input type='file' name='file'><a href='#this' name='file-delete'>삭제</a></div>";
+        $("#file-list").append(str);
+        $("a[name='file-delete']").on("click", function(e) {
+            e.preventDefault();
+            deleteFile($(this));
+        });
+    }
+ 
+    function deleteFile(obj) {
+        obj.parent().remove();
+    }
+</script>
 	
 </body>
 

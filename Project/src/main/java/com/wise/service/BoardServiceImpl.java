@@ -1,10 +1,12 @@
 package com.wise.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.wise.domain.BoardVO;
 import com.wise.persistence.BoardDAO;
@@ -77,5 +79,11 @@ public class BoardServiceImpl implements BoardService {
 	public int count(String id, String searchType, String keyword) throws Exception {
 		
 		return dao.count(id, searchType, keyword);
+	}
+	
+	//최신 Idx
+	@Override
+	public String nextIdx() throws Exception {
+		return dao.nextIdx();
 	}
 }

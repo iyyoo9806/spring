@@ -2,6 +2,8 @@ package com.wise.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.wise.domain.BoardVO;
 
 public interface BoardService {
@@ -36,4 +38,7 @@ public interface BoardService {
 	
 	//게시물 아이디별 갯수 + 검색
 	public int count(String id, String searchType, String keyword) throws Exception;
+
+	//최신 idx
+	public String nextIdx() throws Exception;
 }
