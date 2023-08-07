@@ -100,7 +100,7 @@ public class MainController {
 	//게시물 상세 페이지
 	@RequestMapping(value ="/view")
 	public String view(HttpServletRequest request,@RequestParam("idx") String idx, Model model) throws Exception {
-//		String degree = (String)request.getSession().getAttribute("degree");
+
 		Object degreeObj = request.getSession().getAttribute("degree");
 	    String degree = degreeObj != null ? degreeObj.toString() : "default";
 	    if(degree.equals("default")) {
@@ -117,10 +117,7 @@ public class MainController {
 			File dir = new File(filePath);
 			fileNames = dir.list();
 		}
-//		File dir = new File(filePath);
-		
-//		String[] filenames = dir.list();
-		
+
 		model.addAttribute("read", vo);
 		model.addAttribute("fileNames", fileNames);// 파일 이름들 모델에 담아 화면에 전송
 		

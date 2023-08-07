@@ -30,9 +30,11 @@
 <link href="resources/vendor/datatables/dataTables.bootstrap4.min.css"
 	rel="stylesheet">
 	
+<script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
+	
 <script type="text/javaScript" language="javascript" defer="defer">
 function cancel(){
-	location.href = "<c:url value='/board'/>";
+	location.href = "<c:url value='/board?num=1'/>";
 }
 </script>
 	
@@ -71,7 +73,7 @@ function cancel(){
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item active"><a class="nav-link"
-				href="board"> <i class="fas fa-fw fa-table"></i> <span>Tables</span></a>
+				href="board?num=1"> <i class="fas fa-fw fa-table"></i> <span>Tables</span></a>
 			</li>
 
 			<!-- Divider -->
@@ -106,8 +108,29 @@ function cancel(){
 							<div class="form-group">
 								<label class="control-label col-sm-2" for="pwd">내용</label>
 								<div class="col-sm-10">
-									<textarea class="form-control" rows="5" id="contents" name="contents"
+									<textarea class="form-control" rows="5" id="contentText" name="contents"
 										maxlength="1000" readonly="readonly">${read.contents }</textarea>
+										
+									<script>
+									 var ckeditor_config = {
+									   resize_enabled : false,
+									   enterMode : CKEDITOR.ENTER_BR,
+									   shiftEnterMode : CKEDITOR.ENTER_P,
+									 };
+									 
+									 CKEDITOR.replace("contentText", ckeditor_config);
+									</script>			
+									
+										<div class="file-info">
+							    			<span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
+							    			<br>
+							    			첨부파일
+							    			<br>
+							    			<c:forEach items="${fileNames}" var="filename">
+								    			<a href='<c:url value="/download?idx=${read.idx}&filename=${filename}" />'><c:out value="${filename}" /></a><br>
+											</c:forEach>
+										</div>							
+										
 								</div>
 							</div>
 							<div class="panel-footer">

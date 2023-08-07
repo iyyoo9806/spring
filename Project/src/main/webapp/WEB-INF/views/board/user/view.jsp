@@ -29,6 +29,7 @@
 <!-- Custom styles for this page -->
 <link href="resources/vendor/datatables/dataTables.bootstrap4.min.css"
 	rel="stylesheet">
+<script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
 	
 <script type="text/javaScript" language="javascript" defer="defer">
 
@@ -85,7 +86,6 @@ function cancel(){
 					<div class="bg-white py-2 collapse-inner rounded">
 						<h6 class="collapse-header">Login Screens:</h6>
 						<a class="collapse-item" href="logout">Logout</a>
-						<a class="collapse-item" href="mypage">My Page</a>
 					</div>
 				</div></li>
 
@@ -128,8 +128,17 @@ function cancel(){
 							<div class="form-group">
 								<label class="control-label col-sm-2" for="pwd">내용</label>
 								<div class="col-sm-10">
-									<textarea class="form-control" rows="5" id="contents" name="contents"
+									<textarea class="form-control" rows="5" id="contentText" name="contents"
 										maxlength="1000" readonly="readonly">${read.contents }</textarea>
+									<script>
+									 var ckeditor_config = {
+									   resize_enabled : false,
+									   enterMode : CKEDITOR.ENTER_BR,
+									   shiftEnterMode : CKEDITOR.ENTER_P,
+									 };
+									 
+									 CKEDITOR.replace("contentText", ckeditor_config);
+									</script>
 										
 										<div class="file-info">
 							    			<span class="glyphicon glyphicon-camera" aria-hidden="true"></span>

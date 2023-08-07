@@ -29,29 +29,8 @@
 <!-- Custom styles for this page -->
 <link href="resources/vendor/datatables/dataTables.bootstrap4.min.css"
 	rel="stylesheet">
-
-<!-- <script src="https://cdn.ckeditor.com/ckeditor5/38.1.1/classic/ckeditor.js"></script> -->
-
-<script type="text/javaScript" language="javascript" defer="defer">
-function check(){
-	if( $("#title").val() == ""){
-		alert("제목을 입력하세요");
-		return false;
-	}
 	
-	if( $("#contents").val() == ""){
-		alert("내용을 입력하세요");
-		return false;
-	}
-	
-	return true;
-}
-
-
-function cancel(){
-	location.href = "<c:url value='/board?num=1'/>";
-}
-</script>
+<script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
 	
 </head>
 
@@ -123,9 +102,18 @@ function cancel(){
 							<div class="form-group">
 								<label class="control-label col-sm-2" for="pwd">내용</label>
 								<div class="col-sm-10">
-									<textarea class="form-control" rows="5" id="contents"
+									<textarea class="form-control" rows="5" id="contentText"
 										name="contents" placeholder="내용을 입력하세요" 
 										maxlength="1000" required="required"></textarea>
+									<script>
+									 var ckeditor_config = {
+									   resize_enabled : false,
+									   enterMode : CKEDITOR.ENTER_BR,
+									   shiftEnterMode : CKEDITOR.ENTER_P,
+									 };
+									 
+									 CKEDITOR.replace("contentText", ckeditor_config);
+									</script>
 								</div>
 							</div>
 							<div class="form-group" id="file-list">
@@ -210,6 +198,33 @@ function cancel(){
     function deleteFile(obj) {
         obj.parent().remove();
     }
+</script>
+
+<script type="text/javaScript" language="javascript" defer="defer">
+function check(){
+	if( $("#title").val() == ""){
+		alert("제목을 입력하세요");
+		return false;
+	}
+	
+    // CKEditor 인스턴스 가져오기
+    var editor = CKEDITOR.instances.contents;
+
+    // 에디터에서 컨텐츠 가져오기
+    var content = editor.getData().trim();
+	
+	if( $("#contents").val() == ""){
+		alert("내용을 입력하세요");
+		return false;
+	}
+	
+	return true;
+}
+
+
+function cancel(){
+	location.href = "<c:url value='/board?num=1'/>";
+}
 </script>
 	
 	

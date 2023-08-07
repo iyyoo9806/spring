@@ -62,7 +62,7 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item active">
-                <a class="nav-link" href="board">
+                <a class="nav-link" href="board?num=1">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Tables</span></a>
             </li>
@@ -115,8 +115,10 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex justify-content-between align-items-center">
-            			<h6 class="m-0 font-weight-bold text-primary">${sessionScope.name}님 환영합니다.</h6>
+            			<h6 class="m-0 font-weight-bold text-primary">${sessionScope.name}님 환영합니다.
+            			<a href="logout" class="btn btn-primary">로그아웃</a></h6>
 				            <!-- <a href="#" class="btn btn-secondary btn-icon-split"> -->
+
 				                <a href="<c:url value='/excel?searchType=${page.searchType }&keyword=${page.keyword }
 				                ' />" class="btn btn-primary" id="excelDown">엑셀 다운로드</a>
 				            <!-- </a> -->

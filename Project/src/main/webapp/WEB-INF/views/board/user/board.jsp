@@ -56,7 +56,6 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Login Screens:</h6>
                         <a class="collapse-item" href="logout">Logout</a>
-                		<a class="collapse-item" href="mypage">My Page</a>
                     </div>
                 </div>
             </li>
@@ -85,38 +84,13 @@
             <!-- Main Content -->
             <div id="content">
 
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <form class="form-inline">
-                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                            <i class="fa fa-bars"></i>
-                        </button>
-                    </form>
-
-
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-search fa-fw"></i>
-                            </a>
-                        <div class="topbar-divider d-none d-sm-block"></div>
-                    </ul>
-
-                </nav>
-                <!-- End of Topbar -->
-
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
                     <!-- DataTales Example 여기부터-->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex justify-content-between align-items-center">
-            			<h6 class="m-0 font-weight-bold text-primary">${sessionScope.name}님의 게시물</h6>
+            			<h6 class="m-0 font-weight-bold text-primary">${sessionScope.name}님의 게시물
+            			<a href="logout" class="btn btn-primary">로그아웃</a></h6>
 				            <!-- <a href="#" class="btn btn-secondary btn-icon-split"> -->
 				                <a href="write" class="btn btn-primary">작성</a>
 				            <!-- </a> -->
