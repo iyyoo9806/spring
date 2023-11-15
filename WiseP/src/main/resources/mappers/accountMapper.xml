@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wise.mappers.accountMapper">
+
+<!-- 회원 가입 -->
+<insert id="register">
+ insert into wiseP.account(ID, PASSWORD, NAME)
+  values(#{id}, #{password}, #{name})
+</insert>
+
+<select id="idCheck" resultType="com.wise.login.domain.AccountVO">
+	select ID
+	from wiseP.account
+	where id = #{id}
+</select>
+
+</mapper>
