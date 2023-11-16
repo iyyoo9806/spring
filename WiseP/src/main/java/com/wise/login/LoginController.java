@@ -15,12 +15,7 @@ public class LoginController {
 	
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public String registerGet() {
-		return "home/register";
-	}
-	
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String registerPost() {
+	public String register() {
 		return "home/register";
 	}
 

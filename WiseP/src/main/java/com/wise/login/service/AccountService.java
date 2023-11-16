@@ -1,5 +1,7 @@
 package com.wise.login.service;
 
+import javax.servlet.http.HttpSession;
+
 import com.wise.login.domain.AccountVO;
 
 public interface AccountService {
@@ -9,4 +11,10 @@ public interface AccountService {
 	
 	//아이디 중복체크
 	public AccountVO idCheck(String id) throws Exception;
+	
+	//로그인
+	public AccountVO login(AccountVO vo) throws Exception;
+	
+	//로그아웃
+	public void logout(HttpSession session) throws Exception;
 }

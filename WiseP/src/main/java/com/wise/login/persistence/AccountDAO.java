@@ -8,4 +8,7 @@ public interface AccountDAO {
 	
 	//아이디 중복검사
 	public AccountVO idCheck(String id) throws Exception;
+	
+	//로그인
+	public AccountVO login(AccountVO vo) throws Exception;
 }

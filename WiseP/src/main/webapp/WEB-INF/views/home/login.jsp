@@ -22,12 +22,37 @@
 
     <!-- Custom styles for this template-->
     <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
-    
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javaScript" language="javascript" defer="defer">
-	function check(){
-		
-		return true;
-	}
+    
+    $(document).ready(function(){
+    	$("#loginBtn").click(function(){
+    		console.log(data);
+    		let data = {
+    			name : $("#id").val(),
+    			name : $("#password").val()
+    		};
+    		
+    		$.ajax({
+    			type : 'POST',
+    			url : '/api/login',
+    			contentType : 'application/json',
+    			success : function(response) {
+    				if(response.status === 'success') {
+    					alert(response.message);
+    					window.loaction.href = "/board";
+    				} else{
+    					alert(response.message);
+    				}
+    			},
+    			error : function(xhr, status, error) {
+    				console.log(xhr.responseText);
+    			}
+    		})
+    		return true;
+    	})
+    })
+	
     </script>
 
 </head>
@@ -62,7 +87,7 @@
                                                 id="password" name="password" required="required"
                                                 placeholder="Password">
                                         </div>
-                                        <button type = "submit" class="btn btn-primary btn-user btn-block" 
+                                        <button id="loginBtn" class="btn btn-primary btn-user btn-block" 
                               			>Login</button>
                                     </form>
                                     <hr>

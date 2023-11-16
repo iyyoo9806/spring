@@ -26,4 +26,10 @@ public class AccountDAOImpl implements AccountDAO {
 	public AccountVO idCheck(String id) throws Exception {
 		return sql.selectOne(namespace + ".idCheck", id);
 	}
+	
+	//로그인
+	@Override
+	public AccountVO login(AccountVO vo) throws Exception {
+		return sql.selectOne(namespace + ".login", vo);
+	}
 }
