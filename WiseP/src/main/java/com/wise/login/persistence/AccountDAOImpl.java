@@ -32,4 +32,16 @@ public class AccountDAOImpl implements AccountDAO {
 	public AccountVO login(AccountVO vo) throws Exception {
 		return sql.selectOne(namespace + ".login", vo);
 	}
+	
+	//이름
+	@Override
+	public String findName(String id) throws Exception {
+		return sql.selectOne(namespace + ".findName", id);
+	}
+	
+	//탈퇴
+	@Override
+	public String withdrawal(String id) throws Exception {
+		return sql.selectOne(namespace + ".withdrawal", id);
+	}
 }

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wise.mappers.boardMapper">
+
+<!-- 게시글 목록 -->
+<select id="listPage" parameterType="hashMap" resultType="com.wise.board.domain.BoardVO">
+	select *
+	from wiseP.board
+	where STATUS != 'deactive'
+</select>
+
+<!-- 게시글 작성 -->
+<insert id="write" flushCache="true" useGeneratedKeys="true" keyProperty="idx">
+	<![CDATA[
+    BEGIN;
+	insert into wiseP.board(IDX, BOARD_CODE, ID, NAME, TITLE, CONTENTS, CRDTIME, UPDTIME)
+		values(NULL, DEFAULT, #{id}, #{name}, #{title}, #{contents}, #{crdTime}, NULL );
+	
+	insert into wiseP.board_hist (IDX, BOARD_CODE, ID, TITLE, CONTENTS, CRDTIME, UPDTIME, DELTIME)
+		select IDX, BOARD_CODE, ID, TITLE, CONTENTS, CRDTIME, UPDTIME, null
+		from wiseP.board
+		where idx = (select LAST_INSERT_ID());
+	COMMIT;
+    ]]>
+</insert>
+
+<!-- 조회 -->
+<select id="read" resultType = "com.wise.board.domain.BoardVO">
+	select *
+		from wiseP.board
+		where idx = #{idx}
+		and STATUS != 'deactive'
+</select>
+
+<update id="modify" parameterType="com.wise.board.domain.BoardVO">
+	<![CDATA[
+    BEGIN;
+    update wiseP.board
+    	set
+    		TITLE = #{title},
+    		CONTENTS = #{contents},
+    		UPDTIME = #{updTime}
+    	where idx = #{idx};
+    
+   	insert into wiseP.board_hist (IDX, BOARD_CODE, ID, TITLE, CONTENTS, CRDTIME, UPDTIME, DELTIME)
+		select IDX, BOARD_CODE, ID, TITLE, CONTENTS, CRDTIME, UPDTIME, null
+		from wiseP.board
+		where idx = #{idx};
+	COMMIT;
+    ]]>
+</update>
+
+<update id="delete" parameterType="com.wise.board.domain.BoardVO">
+	<![CDATA[
+    BEGIN;
+    update wiseP.board
+    	set
+    		STATUS = 'deactive'
+    	where idx = #{idx};
+    	
+   	insert into wiseP.board_hist (IDX, BOARD_CODE, ID, TITLE, CONTENTS, CRDTIME, UPDTIME, DELTIME)
+		select IDX, BOARD_CODE, ID, TITLE, CONTENTS, CRDTIME, UPDTIME, #{delTime}
+		from wiseP.board
+		where idx = #{idx};
+	COMMIT;
+    ]]>
+</update>
+</mapper>

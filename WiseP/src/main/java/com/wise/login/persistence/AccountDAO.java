@@ -11,4 +11,10 @@ public interface AccountDAO {
 	
 	//로그인
 	public AccountVO login(AccountVO vo) throws Exception;
+	
+	//이름 가져오기
+	public String findName(String id) throws Exception;
+	
+	//회원 탈퇴
+	public String withdrawal(String id) throws Exception;
 }

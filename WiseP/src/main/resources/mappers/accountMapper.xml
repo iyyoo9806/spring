@@ -6,13 +6,13 @@
 
 <!-- 회원 가입 -->
 <insert id="register">
- insert into wiseP.account(ID, PASSWORD, NAME)
+ insert into wiseP.member(ID, PASSWORD, NAME)
   values(#{id}, #{password}, #{name})
 </insert>
 <!-- 아이디 체크 -->
 <select id="idCheck" resultType="com.wise.login.domain.AccountVO">
-	select ID
-	from wiseP.account
+	select *
+	from wiseP.member
 	where id = #{id}
 </select>
 
@@ -23,5 +23,32 @@
 	from wiseP.account
 	where id = #{id}
 </select>
+
+<!-- 이름 가져오기 -->
+<select id="findName" resultType="String">
+	select name
+	from wiseP.member
+	where id = #{id}
+</select>
+
+<!-- 회원 탈퇴 -->
+<update id="withdrawal" parameterType="com.wise.login.domain.AccountVO">
+	<![CDATA[
+    BEGIN;
+    update wiseP.member
+    	set
+    		PASSWORD = NULL,
+    		NAME = '탈퇴한 회원',
+    		ROLE = NULL,
+    		STATEMENT_CODE = 1
+    	where id = #{id};
+    
+   	update wiseP.board
+		set
+			name = '탈퇴한 회원'
+		where id = #{id};
+	COMMIT;
+    ]]>
+</update>
 
 </mapper>

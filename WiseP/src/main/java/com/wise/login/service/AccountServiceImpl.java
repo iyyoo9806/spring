@@ -37,4 +37,16 @@ public class AccountServiceImpl implements AccountService {
 	public void logout(HttpSession session) throws Exception{
 		session.invalidate();
 	}
+	
+	//이름
+	@Override
+	public String findName(String id) throws Exception{
+		return dao.findName(id);
+	}
+	
+	//탈퇴
+	@Override
+	public String withdrawal(String id) throws Exception{
+		return dao.withdrawal(id);
+	}
 }

@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
+<%@ page import="org.springframework.security.core.userdetails.UserDetails" %>
+
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html>
 
@@ -34,6 +39,11 @@
 
 
 	$(document).ready(function() {
+	    let principalValue = document.getElementById("principalInput").value;
+	    console.log("Principal Value: " + principalValue);
+		if(principalValue!== "anonymousUser"){
+			window.location.href = '/board';
+		} 
 		$("#registerBtn").click(function() {
 
 			let data = {
@@ -78,6 +88,7 @@
 				data : JSON.stringify(data),
 				contentType : "application/json",
 				success : function(response) {
+					console.log(response);
 					if (response.status === 'success') {
 						alert(response.message);
 						window.location.href = "/";
@@ -97,7 +108,8 @@
 
 </head>
 
-
+<c:set var="userDetails" value="<%= SecurityContextHolder.getContext().getAuthentication().getPrincipal() %>" />
+<input type="hidden" id="principalInput" name="principalInput" value="${userDetails}" />
 <body class="bg-gradient-primary">
 
 	<div class="container">

@@ -1,25 +1,25 @@
 package com.wise.login.api;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.wise.login.domain.AccountVO;
 import com.wise.login.service.AccountService;
 
-@Controller
+@RestController
 public class LoginApi {
 	
 	@Inject
@@ -29,9 +29,10 @@ public class LoginApi {
 	BCryptPasswordEncoder encoder;
 	
 	private static final Logger logger = LoggerFactory.getLogger(LoginApi.class);
-	@ResponseBody
-	@RequestMapping(value = "/api/register", method = RequestMethod.POST)
+	
+	@PostMapping(value = "/api/register")
 	public HashMap<String, String> apiRegister(@RequestBody Map<String, String> body) throws Exception {
+		logger.info("okay");
 		HashMap<String, String> map = new HashMap<String, String>();
 		AccountVO vo = new AccountVO();
 		String id = body.get("id");
@@ -58,44 +59,23 @@ public class LoginApi {
 		return map;
 	}
 	
-	@ResponseBody
-	@RequestMapping(value = "api/login", method = RequestMethod.POST)
-	public HashMap<String, String> apiLogin(@RequestBody Map<String, String> body, HttpServletRequest request) throws Exception {
-		HashMap<String, String> map = new HashMap<String, String>();
-		String id = body.get("id");
-		String password = body.get("password");
+	@PutMapping(value = "/api/withdrawal")
+	public HashMap<String,Object> apiWithdrawal(Principal principal, @RequestBody Map<String,String> body) throws Exception {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		String id = principal.getName();
+		String hiddenId = body.get("hiddenId");
 		
-		logger.info(id);
-		logger.info(password);
-		
-		AccountVO vo = new AccountVO();
-		vo.setId(id);
-		vo.setPassword(password);
-		AccountVO idCheck = service.idCheck(id);
-		AccountVO login = service.login(vo);
-		if(idCheck !=null) {
-			boolean passMatch = encoder.matches(vo.getPassword(), login.getPassword());
-			
-			if(passMatch) {
-				String name = login.getName();
-				logger.info("성공 : " + name);
-				request.getSession().setAttribute("id", id);
-				request.getSession().setAttribute("name", name);
-				map.put("status", "success");
-				map.put("message", "회원가입 성공");
-			}else {
-				request.getSession().setAttribute("id", "");
-				request.getSession().setAttribute("name", "");
-				map.put("status", "fail");
-				map.put("message", "비밀번호가 올바르지 않습니다.");
-			}
+		if(id.equals(hiddenId)) {
+			service.withdrawal(id);
+			SecurityContextHolder.getContext().setAuthentication(null);
+			map.put("status", "success");
+			map.put("message", "성공적으로 탈퇴하셨습니다.");
 		}else {
-			request.getSession().setAttribute("id", "");
-			request.getSession().setAttribute("name", "");	
 			map.put("status", "fail");
-			map.put("message", "아이디가 올바르지 않습니다.");
+			map.put("message", "에러 발생");
+			logger.info("실패");
 		}
-		
 		return map;
 	}
+	
 }

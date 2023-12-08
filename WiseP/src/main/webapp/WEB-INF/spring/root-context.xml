@@ -13,8 +13,8 @@
 		
 <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">
  <property name="driverClassName" value="org.mariadb.jdbc.Driver" />
- <property name="url" value="jdbc:mariadb://15.164.210.225:3306" />
- <property name="username" value="host" />
+ <property name="url" value="jdbc:mariadb://localhost:3306?allowMultiQueries=true" />
+ <property name="username" value="root" />
  <property name="password" value="1234" />
 </bean>
 
@@ -34,4 +34,7 @@
 <context:component-scan base-package="com.wise.login.domain" />
 <context:component-scan base-package="com.wise.login.persistence" />
 <context:component-scan base-package="com.wise.login.service" />
+<context:component-scan base-package="com.wise.board.domain" />
+<context:component-scan base-package="com.wise.board.persistence" />
+<context:component-scan base-package="com.wise.board.service" />
 </beans>
